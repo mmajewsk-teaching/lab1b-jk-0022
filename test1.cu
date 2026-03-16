@@ -18,8 +18,8 @@
 // C[row][col] = sum over k of A[row][k] * B[k][col]
 // Row-major layout: element (i,j) is at index [i * n + j].
 __global__ void matmul_kernel(const float *A, const float *B, float *C, int n) {
-    int row = blockIdx.x + blockDim.x + threadIdx.x;
-     int col = blockIdx.y + blockDim.y + threadIdx.y;
+    int row = blockIdx.x * blockDim.x + threadIdx.x;
+     int col = blockIdx.y * blockDim.y + threadIdx.y;
      if (row < n && col < n){
         float sum = 0.0f;
         for (int k = 0; k<n; k++){
